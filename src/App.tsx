@@ -50,6 +50,7 @@ export interface Item {
 )
   }
 
+  
   private displayRecords(key: number) {
     let items =this.state.items;
  
