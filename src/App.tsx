@@ -58,6 +58,7 @@ export interface Item {
       this.displayRecordName(each_col,key)
     ) 
   }
+  
   public render(){
     let items =this.state.items;
 
