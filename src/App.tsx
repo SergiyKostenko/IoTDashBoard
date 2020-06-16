@@ -44,8 +44,9 @@ export interface Item {
     let record :Item = this.state.items[key];
 
     return( 
-
-   <tr> <td>{record.rowKey}</td>></tr>
+<React.Fragment>
+<td>{record.rowKey}</td><td>{record.humidity}</td><td>{record.isFlameDetected}</td><td>{record.temperature}</td><td>{record.rowKey}</td>
+</React.Fragment>
 
 )
   }
@@ -76,7 +77,7 @@ export interface Item {
          <thead className="thead-light">   <tr>s</tr>   </thead>  
          <tbody> 
 
-         {items && items.map((each_item, recordindex) =>{this.displayRecords(recordindex)})}
+         {items && items.map((each_item, recordindex) =><tr> {this.displayRecords(recordindex)}</tr> )}
          </tbody>
          </table>
         </p>
