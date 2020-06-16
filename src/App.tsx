@@ -3,10 +3,20 @@ import * as ReactDOM from "react-dom";
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import { withStyles } from '@material-ui/styles'
 
  export interface IAppProps{
 
  }
+
 export interface Item {
   humidity: number;
   temperature: number;
@@ -19,6 +29,8 @@ export interface Item {
     items:any[];
 
   }
+  
+ 
   
    class App extends React.Component<IAppProps, IState>{
     constructor(props: IAppProps) {
@@ -40,60 +52,51 @@ export interface Item {
       })
   }
 
-  private displayRecordName(colname:string, key:number){
-    let record :Item = this.state.items[key];
-
+  
+  private displayRecord(record: Item) {
+ 
     return( 
-<React.Fragment>
-<td>{record.rowKey}</td><td>{record.humidity}</td><td>{record.isFlameDetected}</td><td>{record.temperature}</td><td>{record.rowKey}</td>
-</React.Fragment>
-
-)
+      <React.Fragment>
+      <TableCell component="th" scope="row">{record.rowKey}</TableCell>
+      <TableCell align="right">{record.humidity}</TableCell>
+      <TableCell align="right">{record.temperature}</TableCell>
+      <TableCell align="right">{String(record.isFlameDetected)}</TableCell>
+      </React.Fragment>
+      
+      )
   }
 
-  
-  private displayRecords(key: number) {
-    let items =this.state.items;
- 
-    return items.map((each_col) => 
-      this.displayRecordName(each_col,key)
-    ) 
+  private generateTable(items: Item[]){
+
+    return(
+      <TableContainer component={Paper}>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Date</TableCell>
+            <TableCell align="right">Humidity</TableCell>
+            <TableCell align="right">Temperature</TableCell>
+            <TableCell align="right">Flame detected</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+        {items.map((item) => ( <TableRow> {this.displayRecord(item)}</TableRow>))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+    )
   }
   
   public render(){
     let items =this.state.items;
-
-
-      return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-        <p>
-         Number of records: {items.length}
-         <table className="table table-bordered">
-         <thead className="thead-light">   <tr>s</tr>   </thead>  
-         <tbody> 
-
-         {items && items.map((each_item, recordindex) =><tr> {this.displayRecords(recordindex)}</tr> )}
-         </tbody>
-         </table>
-        </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-           
-            </a>
-            {getExclamationMarks(5)}
-          </header>
-        </div>
-      );
+    
+    return (
+      <div>
+      <p>Records:{items.length}</p> 
+      {this.generateTable(items)}
+      </div>
+    );
     }
 
 
