@@ -1,111 +1,150 @@
-import React from 'react';
-import * as ReactDOM from "react-dom";
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Box from '@material-ui/core/Box';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import { withStyles } from '@material-ui/styles'
+import Link from '@material-ui/core/Link';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Chart from './components/Chart';
 
- export interface IAppProps{
-
- }
-
-export interface Item {
-  humidity: number;
-  temperature: number;
-  isFlameDetected: boolean;
-  partitionKey: string;
-  rowKey: Date;
-   }
-
-   export interface IState  {
-    items:any[];
-
-  }
-  
- 
-  
-   class App extends React.Component<IAppProps, IState>{
-    constructor(props: IAppProps) {
-      super(props);
-      this.state = { 
-        items: [], 
-
-      }
-  }
-  
+import Table from './components/Table';
+import {Item,TableProps} from './Interfaces'
 
 
+const drawerWidth = 240;
+const url : string="https://myamazingiotbackend.azurewebsites.net/api/GetData?code=o97MlGa4Qo4zEKOW1bfG8Kh3ze0cUpdVZgbecHA0jQ4hGanvubCbFw==";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  toolbar: {
+    paddingRight: 24, // keep right padding when drawer closed
 
-    public componentDidMount(): void {
-     
-     let url : string="https://myamazingiotbackend.azurewebsites.net/api/GetData?code=o97MlGa4Qo4zEKOW1bfG8Kh3ze0cUpdVZgbecHA0jQ4hGanvubCbFw==";
-      axios.get(url).then(data => {
-          this.setState({ items: data.data })
-      })
-  }
+  },
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
 
-  
-  private displayRecord(record: Item) {
- 
-    return( 
-      <React.Fragment>
-      <TableCell component="th" scope="row">{record.rowKey}</TableCell>
-      <TableCell align="right">{record.humidity}</TableCell>
-      <TableCell align="right">{record.temperature}</TableCell>
-      <TableCell align="right">{String(record.isFlameDetected)}</TableCell>
-      </React.Fragment>
-      
-      )
-  }
+  title: {
+    flexGrow: 1,
+  },
 
-  private generateTable(items: Item[]){
 
-    return(
-      <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell align="right">Humidity</TableCell>
-            <TableCell align="right">Temperature</TableCell>
-            <TableCell align="right">Flame detected</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {items.map((item) => ( <TableRow> {this.displayRecord(item)}</TableRow>))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-
-    )
-  }
-  
-  public render(){
-    let items =this.state.items;
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
     
-    return (
-      <div>
-      <p>Records:{items.length}</p> 
-      {this.generateTable(items)}
-      </div>
-    );
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+    backgroundColor: "#828282",
+    color: 'white',
+  },
+  fixedHeight: {
+    height: 240,
+  },
+}));
+
+export default function Dashboard() {
+  const classes = useStyles();
+ // const [open, setOpen] = useState(true);
+ const [items, setItems] = useState<Item[] >([]);
+ const [isReady, setReady] = useState(false)
+ const [msg, setMSG] = useState<string>("Hello!");
+
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  useEffect(() => {
+  axios.get(url).then(data => {
+    if (data.status==200) { 
+      setItems(data.data);
+      setReady(true);  
     }
+    });
+  });
 
+  let change: string = "hello react worlad!"
+  return (
 
-}
+    <div className={classes.root}>
+       <CssBaseline />
+      <AppBar position="fixed" >
+        <Toolbar className={classes.toolbar}>
 
-export default App;
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+            Dashboard 
+          </Typography>
+          <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </Toolbar>
+      </AppBar>
 
-// helpers
-
-function getExclamationMarks(numChars: number) {
-  return numChars;
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            {/* Charts */}
+            <Grid item xs={12}>
+              <Paper className={fixedHeightPaper}>
+                <Chart items={items} value="humidity"/>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className={fixedHeightPaper}>
+                <Chart items={items} value="temperature"/>
+              </Paper>
+            </Grid>
+         
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Table items={items} isReady={isReady}/>
+              </Paper>
+            </Grid>
+          </Grid>
+         </Container>
+       </main>
+     </div>
+  );
 }
