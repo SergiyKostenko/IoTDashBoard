@@ -1,27 +1,21 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
 import {Item,TableProps} from '../Interfaces'
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 
 // Generate Order Data
 
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   seeMore: {
+//     marginTop: theme.spacing(3),
+//   },
+// }));
 
-function getData(): number{
-  return 5;
-}
 
 function displayRecord(record: Item) {
  
@@ -60,7 +54,7 @@ function generateTable(items: Item[]){
 
 //export default function Orders(props: {message: Item[] }, {isReady: boolean}) {
 export default function Orders({ items, isReady }: TableProps) {
-  const classes = useStyles();
+  //const classes = useStyles();
   return (
     <React.Fragment>
     Records: {items.length}

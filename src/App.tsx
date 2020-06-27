@@ -3,7 +3,6 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,12 +11,10 @@ import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './components/Chart';
-
 import Table from './components/Table';
-import {Item,TableProps} from './Interfaces'
+import {Item} from './Interfaces'
 
 
 const drawerWidth = 240;
@@ -88,20 +85,19 @@ export default function Dashboard() {
  // const [open, setOpen] = useState(true);
  const [items, setItems] = useState<Item[] >([]);
  const [isReady, setReady] = useState(false)
- const [msg, setMSG] = useState<string>("Hello!");
+
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   useEffect(() => {
   axios.get(url).then(data => {
-    if (data.status==200) { 
+    if (data.status===200) { 
       setItems(data.data);
       setReady(true);  
     }
     });
   });
 
-  let change: string = "hello react worlad!"
   return (
 
     <div className={classes.root}>
