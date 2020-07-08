@@ -4,6 +4,7 @@ export interface Item {
     isFlameDetected: boolean;
     deviceName: string;
     date: Date;
+    dateString: string;
 }
 
 export interface TableProps{

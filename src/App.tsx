@@ -92,7 +92,16 @@ export default function Dashboard() {
   useEffect(() => {
     axios.get(url).then(data => {
       if (data.status === 200) {
-        setItems(data.data);
+        let items:Item[]=data.data;
+        items.forEach(item => {
+          let tmp:string=item.date.toString();
+          let day:string=tmp.substring(7,8);
+          let month:string=tmp.substring(5,6);
+          let hours:string=tmp.substring(tmp.indexOf('T')+1,tmp.indexOf(':'))
+          let dateString:string=day+"/"+month+ ":" +hours;
+          item.dateString=dateString;
+        });
+        setItems(items);
         setReady(true);
       }
     });
