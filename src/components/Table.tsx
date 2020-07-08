@@ -21,7 +21,7 @@ function displayRecord(record: Item) {
  
   return( 
     <React.Fragment>
-    <TableCell component="th" scope="row">{record.rowKey}</TableCell>
+    <TableCell component="th" scope="row">{record.date.getDate()}</TableCell>
     <TableCell align="right">{record.humidity}</TableCell>
     <TableCell align="right">{record.temperature}</TableCell>
     <TableCell align="right">{String(record.isFlameDetected)}</TableCell>

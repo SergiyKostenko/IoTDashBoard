@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './components/Chart';
 import Table from './components/Table';
-import {Item} from './Interfaces'
+import { Item } from './Interfaces'
 
 
 const drawerWidth = 240;
@@ -62,12 +62,12 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    
+
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
   paper: {
-    
+
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
@@ -81,32 +81,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+
   const classes = useStyles();
- // const [open, setOpen] = useState(true);
- const [items, setItems] = useState<Item[] >([]);
- const [isReady, setReady] = useState(false)
+  const [items, setItems] = useState<Item[]>([]);
+  const [isReady, setReady] = useState(false)
 
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   useEffect(() => {
-  axios.get(url).then(data => {
-    if (data.status===200) { 
-      setItems(data.data);
-      setReady(true);  
-    }
+    axios.get(url).then(data => {
+      if (data.status === 200) {
+        setItems(data.data);
+        setReady(true);
+      }
     });
   });
 
   return (
 
     <div className={classes.root}>
-       <CssBaseline />
+      <CssBaseline />
       <AppBar position="fixed" >
         <Toolbar className={classes.toolbar}>
 
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard 
+            Dashboard
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -123,24 +123,24 @@ export default function Dashboard() {
             {/* Charts */}
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
-                <Chart items={items} value="humidity"/>
+                <Chart items={items} value="humidity" />
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
-                <Chart items={items} value="temperature"/>
+                <Chart items={items} value="temperature" />
               </Paper>
             </Grid>
-         
+
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Table items={items} isReady={isReady}/>
+                <Table items={items} isReady={isReady} />
               </Paper>
             </Grid>
           </Grid>
-         </Container>
-       </main>
-     </div>
+        </Container>
+      </main>
+    </div>
   );
 }

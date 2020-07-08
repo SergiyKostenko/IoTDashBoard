@@ -25,7 +25,7 @@ export default function Chart({ items, value }: ChartProps) {
             left: 24,
           }}
         >
-          <XAxis dataKey="rowKey" stroke={theme.palette.text.secondary} />
+          <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
               angle={270}

@@ -2,8 +2,8 @@ export interface Item {
     humidity: number;
     temperature: number;
     isFlameDetected: boolean;
-    partitionKey: string;
-    rowKey: Date;
+    deviceName: string;
+    date: Date;
 }
 
 export interface TableProps{
