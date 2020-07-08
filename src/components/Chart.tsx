@@ -9,12 +9,12 @@ function prepareData (items:Item[]){
   return items;
 }
 
-export default function Chart({ items, value }: ChartProps) {
+export default function Chart({ items, isReady }: ChartProps) {
   const theme = useTheme();
 
   return (
     <React.Fragment>
-      <Title>Graph {value}</Title>
+      <Title>Graph humidity and temperature</Title>
       <ResponsiveContainer>
         <LineChart
           data={prepareData(items)}
@@ -22,7 +22,8 @@ export default function Chart({ items, value }: ChartProps) {
           
         >
            <CartesianGrid strokeDasharray="3 3"/>
-          
+           <Tooltip/>
+           <Legend />
           <XAxis dataKey="dateString" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
@@ -30,12 +31,11 @@ export default function Chart({ items, value }: ChartProps) {
               position="left"
               style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
             >
-              {value}
+
             </Label>
           </YAxis>
-          <Line type="monotone" dataKey={value} stroke={theme.palette.primary.main} 
-          dot={false} 
-          isAnimationActive={true} animationDuration={5000} />
+          <Line type="monotone" dataKey="humidity" stroke={theme.palette.primary.main} dot={false} />
+          <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={true} />
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

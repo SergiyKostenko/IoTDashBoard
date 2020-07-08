@@ -16,5 +16,5 @@ export interface TableProps{
 export interface ChartProps{
     items:Item[];
 
-    value:string;
+    isReady:boolean;
 }

@@ -132,14 +132,14 @@ export default function Dashboard() {
             {/* Charts */}
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
-                <Chart items={items} value="humidity" />
+                <Chart items={items} isReady={isReady} />
               </Paper>
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
                 <Chart items={items} value="temperature" />
               </Paper>
-            </Grid>
+            </Grid> */}
 
             {/* Recent Orders */}
             <Grid item xs={12}>
