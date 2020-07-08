@@ -12,6 +12,7 @@ function prepareData (items:Item[]){
 export default function Chart({ items, isReady }: ChartProps) {
   const theme = useTheme();
 
+
   return (
     <React.Fragment>
       <Title>Graph humidity and temperature</Title>

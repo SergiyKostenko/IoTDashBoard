@@ -90,6 +90,7 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   useEffect(() => {
+    if (!isReady) {
     axios.get(url).then(data => {
       if (data.status === 200) {
         let items:Item[]=data.data;
@@ -105,6 +106,7 @@ export default function Dashboard() {
         setReady(true);
       }
     });
+  }
   });
 
   return (
