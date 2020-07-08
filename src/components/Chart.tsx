@@ -11,34 +11,34 @@ function prepareData (items:Item[]){
 
 export default function Chart({ items, isReady }: ChartProps) {
   const theme = useTheme();
-
+let lineChartBody: any;
+  if (isReady) {
+    lineChartBody=      
+    <ResponsiveContainer>
+    <LineChart
+      data={prepareData(items)}margin={{top: 16, right: 16, bottom: 0, left: 24,}} >
+      <CartesianGrid strokeDasharray="3 3"/><Tooltip/><Legend />
+      <XAxis dataKey="dateString" stroke={theme.palette.text.secondary} />
+      <YAxis stroke={theme.palette.text.secondary}>
+        <Label angle={270} position="left"
+          style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
+        >
+        </Label>
+      </YAxis>
+      <Line type="monotone" dataKey="humidity" stroke={theme.palette.primary.main} dot={false} animationDuration={5000}/>
+      <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={true}  animationDuration={5000} />
+    </LineChart>
+  </ResponsiveContainer>;
+  }
+  else{
+    lineChartBody="Loading...";
+  }
 
   return (
     <React.Fragment>
       <Title>Graph humidity and temperature</Title>
-      <ResponsiveContainer>
-        <LineChart
-          data={prepareData(items)}
-          margin={{top: 16, right: 16, bottom: 0, left: 24,}}
-          
-        >
-           <CartesianGrid strokeDasharray="3 3"/>
-           <Tooltip/>
-           <Legend />
-          <XAxis dataKey="dateString" stroke={theme.palette.text.secondary} />
-          <YAxis stroke={theme.palette.text.secondary}>
-            <Label
-              angle={270}
-              position="left"
-              style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
-            >
+      {lineChartBody}
 
-            </Label>
-          </YAxis>
-          <Line type="monotone" dataKey="humidity" stroke={theme.palette.primary.main} dot={false} />
-          <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={true} />
-        </LineChart>
-      </ResponsiveContainer>
     </React.Fragment>
   );
 }
