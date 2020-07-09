@@ -25,8 +25,8 @@ let lineChartBody: any;
         >
         </Label>
       </YAxis>
-      <Line type="monotone" dataKey="humidity" stroke={theme.palette.primary.main} dot={false} animationDuration={5000}/>
-      <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={true}  animationDuration={5000} />
+      <Line type="monotone" dataKey="humidity" stroke={theme.palette.primary.main} dot={false} animationDuration={7000}/>
+      <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={true}  animationDuration={7000} />
     </LineChart>
   </ResponsiveContainer>;
   }
