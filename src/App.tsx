@@ -130,7 +130,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {/* Charts */}
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>

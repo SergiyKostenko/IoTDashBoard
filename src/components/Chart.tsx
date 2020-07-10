@@ -21,12 +21,12 @@ let lineChartBody: any;
       <XAxis dataKey="dateString" stroke={theme.palette.text.secondary} />
       <YAxis stroke={theme.palette.text.secondary}>
         <Label angle={270} position="left"
-          style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
+          style={{ textAnchor: 'middle', fill: theme.palette.text.primary }} 
         >
         </Label>
       </YAxis>
-      <Line type="monotone" dataKey="humidity" stroke={theme.palette.primary.main} dot={false} animationDuration={7000}/>
-      <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={true}  animationDuration={7000} />
+      <Line type="monotone" dataKey="humidity" stroke="#1966e0" dot={true} />
+      <Line type="monotone" dataKey="temperature" stroke="#bce019" dot={true}  />
     </LineChart>
   </ResponsiveContainer>;
   }
