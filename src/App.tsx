@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   fixedHeight: {
-    height: 240,
+    height: 440,
   },
 }));
 
@@ -129,8 +129,8 @@ export default function Dashboard() {
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={2}>
+        <Container maxWidth="xl" className={classes.container}>
+          <Grid container spacing={4}>
             {/* Charts */}
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
